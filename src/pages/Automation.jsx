@@ -212,10 +212,10 @@ const Automation = () => {
                         onChange={(e) => updateCondition(index, 'operator', e.target.value)}
                         className="w-20 p-2 bg-surface border border-border rounded-lg text-text"
                       >
-                        <option value=">">></option>
-                        <option value="<"><</option>
-                        <option value=">=">>=</option>
-                        <option value="<="><=</option>
+                        <option value=">">{'>'}</option>
+                        <option value="<">{'<'}</option>
+                        <option value=">=">{'>='}</option>
+                        <option value="<=">{'<='}</option>
                         <option value="==">==</option>
                       </select>
                       <input
