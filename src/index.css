@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 :root {
-  /* Paleta de colores del README */
+  /* Paleta de colores actualizada - Azul oscuro en lugar de negro */
   --primary: #9E7FFF;
   --secondary: #38bdf8;
   --accent: #f472b6;
-  --background: #171717;
-  --surface: #262626;
-  --text: #FFFFFF;
-  --text-secondary: #A3A3A3;
-  --border: #2F2F2F;
+  --background: #0f172a;      /* Azul oscuro profundo */
+  --surface: #1e293b;         /* Azul oscuro medio */
+  --text: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --border: #334155;
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
@@ -31,7 +31,7 @@
   --primary-foreground: #FFFFFF;
   --secondary: var(--secondary);
   --secondary-foreground: #FFFFFF;
-  --muted: #374151;
+  --muted: #475569;
   --muted-foreground: var(--text-secondary);
   --accent: var(--accent);
   --accent-foreground: #FFFFFF;
@@ -83,12 +83,31 @@ body {
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   transition: all 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   transform: translateY(-1px);
   box-shadow: var(--glow);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
 }
 
 .card {
@@ -121,9 +140,31 @@ body {
   animation: fadeIn 0.5s ease-out;
 }
 
+/* Scroll personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   :root {
     --radius: 12px;
+  }
+  
+  .card {
+    padding: 1rem;
   }
 }

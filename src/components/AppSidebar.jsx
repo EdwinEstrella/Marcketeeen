@@ -37,16 +37,16 @@ const navigation = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-border h-screen">
-      <SidebarHeader className="border-b border-border p-4">
+    <Sidebar className="border-r border-border bg-background h-screen">
+      <SidebarHeader className="border-b border-border p-4 bg-surface">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="justify-between">
+            <SidebarMenuButton className="justify-between bg-transparent hover:bg-surface/50">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg"></div>
-                <span className="text-lg font-bold">MarketingAI</span>
+                <span className="text-lg font-bold text-text">MarketingAI</span>
               </div>
-              <ChevronDown className="ml-auto opacity-60" />
+              <ChevronDown className="ml-auto opacity-60 text-text-secondary" />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -63,9 +63,9 @@ export function AppSidebar() {
                 const Icon = item.icon
                 return (
                   <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton asChild className="px-4 py-3 hover:bg-surface/50 transition-colors">
-                      <a href={item.href} className="flex items-center gap-3">
-                        <Icon size={20} className="text-text-secondary" />
+                    <SidebarMenuButton asChild className="px-4 py-3 hover:bg-surface/50 transition-colors bg-transparent">
+                      <a href={item.href} className="flex items-center gap-3 text-text-secondary hover:text-text">
+                        <Icon size={20} className="text-text-secondary group-hover:text-text" />
                         <span className="text-sm font-medium">{item.name}</span>
                       </a>
                     </SidebarMenuButton>
@@ -77,20 +77,20 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-border p-4">
+      <SidebarFooter className="border-t border-border p-4 bg-surface">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="justify-between p-2 hover:bg-surface/50 rounded-lg transition-colors">
+            <SidebarMenuButton className="justify-between p-2 hover:bg-surface/50 rounded-lg transition-colors bg-transparent">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center">
-                  <User size={20} />
+                  <User size={20} className="text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">Agencia Digital</p>
+                  <p className="text-sm font-medium text-text truncate">Agencia Digital</p>
                   <p className="text-xs text-text-secondary truncate">admin@agencia.com</p>
                 </div>
               </div>
-              <ChevronDown className="ml-auto opacity-60" />
+              <ChevronDown className="ml-auto opacity-60 text-text-secondary" />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
