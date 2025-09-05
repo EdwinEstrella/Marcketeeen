@@ -60,3 +60,26 @@ Un MVP se desarrolla generalmente en semanas o pocos meses, enfocándose en func
 *   **Fase 5: Iteración y Mejora (Continua):** Analizar el feedback, priorizar funcionalidades y continuar el desarrollo incremental.
 
 Este prompt detalla la construcción de una aplicación web, un **software todo-en-uno**, que integra IA para la creación, optimización y reporte de campañas publicitarias en Facebook Ads, resolviendo los problemas identificados en las fuentes.
+
+
+--------------
+
+Colores: 
+
+*   **Color Primario (Dominante - Profesionalismo y Tecnología)**: Este azul es ideal para el branding principal, botones de acción primarios, encabezados y elementos clave de la interfaz.
+    *   **Azul Corporativo**: `#2F80ED` (Un azul vibrante pero sólido, asociado con la confianza y la innovación tecnológica).
+
+*   **Color Secundario (Datos y Elementos Interactivos)**: Para gráficos, enlaces, iconos y elementos que necesitan destacar sin sobrecargar.
+    *   **Azul Claro/Interactivo**: `#56CCF2` (Un tono más claro que mantiene la cohesión con el azul primario, ideal para líneas en gráficos o íconos).
+
+*   **Colores Neutros (Base y Legibilidad)**: Fundamentales para un diseño limpio y para asegurar la legibilidad del contenido.
+    *   **Blanco (Fondo Principal)**: `#FFFFFF` (Para el fondo de la aplicación y tarjetas de contenido, proporcionando un lienzo limpio).
+    *   **Gris Oscuro (Texto y Elementos Secundarios)**: `#333333` (Para la mayoría del texto, asegurando un alto contraste, y para bordes sutiles o divisores).
+    *   **Gris Suave (Fondos Secundarios)**: `#F2F2F2` (Para fondos de secciones secundarias o áreas de información, como se ve en algunos dashboards).
+
+*   **Colores de Estatus (Indicadores de Rendimiento)**: Esenciales para la visualización de métricas, alertas y feedback al usuario, utilizados de manera consistente en los dashboards.
+    *   **Verde (Positivo/Éxito)**: `#27AE60` (Para indicar crecimiento, éxito en campañas, o métricas positivas como un buen ROI).
+    *   **Rojo (Negativo/Alerta)**: `#EB5757` (Para señalar problemas, descensos en métricas, o alertas importantes como un CPA elevado o una campaña con pérdidas).
+    *   **Naranja/Amarillo (Advertencia/Neutro)**: `#F2C94C` (Para advertencias, métricas neutrales o como un acento secundario para diferenciación, como se observa en algunos logos o elementos de Irudigital y TikTok Ads).
+
+Esta paleta busca un equilibrio entre la estética moderna de las herramientas de marketing digital con IA y la necesidad de una representación clara y efectiva de los datos, elementos cruciales para tu aplicación web.
