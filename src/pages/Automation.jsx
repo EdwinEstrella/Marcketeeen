@@ -9,7 +9,7 @@ const Automation = () => {
       description: 'Pausar anuncios cuando el CPA supera $50',
       status: 'active',
       conditions: [
-        { metric: 'CPA', operator: '>', value: 50value: 50, duration: '24h' }
+        { metric: 'CPA', operator: '>', value: 50, duration: '24h' }
       ],
       actions: [
         { type: 'pause', target: 'ad' }
