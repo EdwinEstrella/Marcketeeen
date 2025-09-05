@@ -1,7 +1,6 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-
-@custom-variant dark (&:is(.dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: oklch(1 0 0);
@@ -88,7 +87,7 @@ body {
   min-height: 100vh;
 }
 
-/* Resto de tus estilos existentes... */
+/* Custom colors for marketing AI tool */
 :root {
   --primary: #9E7FFF;
   --secondary: #38bdf8;
@@ -107,4 +106,15 @@ body {
   --glow: 0 0 20px rgba(158, 127, 255, 0.3);
 }
 
-/* Resto del archivo CSS existente... */
+/* Additional utility classes */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.glow-effect {
+  box-shadow: var(--glow);
+}
+
+.rounded-custom {
+  border-radius: var(--radius);
+}
