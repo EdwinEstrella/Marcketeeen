@@ -37,7 +37,7 @@ const navigation = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-border bg-background h-screen">
+    <Sidebar className="border-r border-border bg-surface h-screen">
       <SidebarHeader className="border-b border-border p-4 bg-surface">
         <SidebarMenu>
           <SidebarMenuItem>
