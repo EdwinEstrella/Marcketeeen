@@ -3,7 +3,7 @@ import { useState } from 'react'
 export const useOpenAI = () => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const generateText = async (prompt, options = {}) => {
+  const generateText = async (prompt) => {
     setIsLoading(true)
     try {
       // Simulate OpenAI API call
@@ -32,4 +32,22 @@ Experimenta la diferencia con nuestro último lanzamiento. Diseñado para maximi
 
 Obtén resultados excepcionales con:
 • Estrategias comprobadas
-• Soporte expert
+• Soporte experto
+• Precios competitivos
+
+¡Contáctanos para más información! 📞`
+        }
+        resolve({ content: responses[prompt] || responses['default'] })
+      }, 1500))
+
+      return response
+    } catch (error) {
+      console.error("Error generating text:", error)
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return { generateText, isLoading }
+}

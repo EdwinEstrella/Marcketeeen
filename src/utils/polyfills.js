@@ -34,7 +34,7 @@ if (typeof window !== 'undefined') {
   if (typeof window.Buffer === 'undefined') {
     window.Buffer = {
       from: (str) => new TextEncoder().encode(str),
-      isBuffer: (obj) => false
+      isBuffer: () => false
     };
   }
 

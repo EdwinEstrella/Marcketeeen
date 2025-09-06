@@ -1,0 +1,5 @@
+-- Siempre leer REAME.md
+-- Nunca modificas el front end de la app
+-- Siempre corre un lint para buscar errores
+-- nunca hacas un run dev
+-- siempre haz un build para ver si el proyecto compila
