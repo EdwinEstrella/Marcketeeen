@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
+    "facebook-nodejs-business-sdk": "^16.0.0",
+    "lucide-react": "^0.263.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
-    "lucide-react": "^0.263.1",
-    "facebook-nodejs-business-sdk": "^16.0.0"
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

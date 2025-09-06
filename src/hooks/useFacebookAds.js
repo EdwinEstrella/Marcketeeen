@@ -14,15 +14,26 @@ export const useFacebookAds = () => {
     setError(null);
     
     try {
-      const adAccounts = await facebookAdsService.getAdAccounts();
-      setAccounts(adAccounts);
+      // Usar datos mock mientras resolvemos la compatibilidad del SDK
+      const mockAccounts = [
+        {
+          id: 'act_123456789',
+          name: 'Mi Cuenta Publicitaria',
+          account_status: 1,
+          amount_spent: 1500.75,
+          balance: 500.25,
+          currency: 'USD'
+        }
+      ];
+      
+      setAccounts(mockAccounts);
       
       // Seleccionar la primera cuenta por defecto
-      if (adAccounts.length > 0 && !selectedAccount) {
-        await selectAccount(adAccounts[0].id);
+      if (mockAccounts.length > 0 && !selectedAccount) {
+        await selectAccount(mockAccounts[0].id);
       }
       
-      return adAccounts;
+      return mockAccounts;
     } catch (err) {
       setError(err.message);
       throw err;
@@ -60,54 +71,10 @@ export const useFacebookAds = () => {
     setError(null);
     
     try {
-      const campaignList = await facebookAdsService.getCampaigns();
+      // Usar datos mock mientras resolvemos la compatibilidad
+      const campaignList = await facebookAdsService.getCampaignsMock();
       setCampaigns(campaignList);
       return campaignList;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Crear nueva campaña
-  const createCampaign = async (campaignData) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const newCampaign = await facebookAdsService.createCampaign(campaignData);
-      
-      // Recargar campañas después de crear una nueva
-      await loadCampaigns();
-      
-      return newCampaign;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Cambiar estado de campaña
-  const toggleCampaignStatus = async (campaignId, currentStatus) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const newStatus = currentStatus === 'ACTIVE' ? 'PAUSED' : 'ACTIVE';
-      const result = await facebookAdsService.toggleCampaignStatus(campaignId, newStatus);
-      
-      // Actualizar estado local
-      setCampaigns(prev => prev.map(campaign =>
-        campaign.id === campaignId
-          ? { ...campaign, status: newStatus }
-          : campaign
-      ));
-      
-      return result;
     } catch (err) {
       setError(err.message);
       throw err;
@@ -122,7 +89,7 @@ export const useFacebookAds = () => {
     setError(null);
     
     try {
-      const insights = await facebookAdsService.getCampaignInsights(campaignIds, dateRange);
+      const insights = await facebookAdsService.getCampaignInsightsMock(campaignIds, dateRange);
       return insights;
     } catch (err) {
       setError(err.message);
@@ -149,8 +116,6 @@ export const useFacebookAds = () => {
     loadAccounts,
     selectAccount,
     loadCampaigns,
-    createCampaign,
-    toggleCampaignStatus,
     getCampaignInsights,
     
     // Utilidades
