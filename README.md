@@ -2355,3 +2355,5 @@ module.exports = { logger, requestLogger };
 **Estado:** En Desarrollo  
 **Licencia:** Propietaria  
 **Última actualización:** Septiembre 2025
+
+Token de facebook: EAAsZA9ZBw1ZAJcBPSWXrNaNv3uArITTRlZAPCHFZBuVY7LM4SfN2SZAnPJlGHs0UiTAqZAdFcKz8aZBbLjrmO96CeT7Dsg56BPX1HGJxKBOic9sQyfhwKGlFIdiYr7nk9OlSvvHbaRydnwAVU1rdf0RUUuyCv0ZBUuEZAYa2AK2zW6JFxMEBUhrRJpeFVaiciM92nSD26Hbm5ZC4mbX5M4J6AGcfQsK
