@@ -1,62 +1,148 @@
-**Prompt para Crear el MVP de una Herramienta Unificada de Marketing Digital con IA (Aplicación Web)**
+# Herramienta Unificada de Marketing Digital con IA
 
-**1. Objetivo Principal de la Aplicación Web (MVP):**
-Desarrollar la **versión más básica y funcional de un software todo-en-uno** que permita a las agencias de marketing digital **automatizar y optimizar sus campañas de Facebook Ads**. El objetivo es validar la idea de negocio con el público objetivo, reducir riesgos y ahorrar recursos y tiempo en el proceso de desarrollo.
+## 📋 Descripción del Proyecto
 
-**2. Necesidades que la Aplicación Web Resolverá:**
-*   **Ineficiencia y complejidad en la gestión de campañas:** La aplicación web debe automatizar flujos de trabajo y facilitar las entregas a los clientes más rápidamente, abordando la gestión manual que es ineficiente y consume mucho tiempo.
-*   **Fragmentación de herramientas:** Ofrecer una **solución unificada** para evitar que las agencias tengan que navegar entre diversas plataformas.
-*   **Falta de personalización y precisión:** Utilizar IA para **segmentar audiencias con precisión quirúrgica** y ofrecer **personalización avanzada** en tiempo real.
-*   **Reportes y análisis limitados:** Mejorar la automatización en los sistemas de informes, incluyendo la medición certera del impacto y la asignación de conversiones.
+Plataforma web todo-en-uno que permite a las agencias de marketing digital **gestionar y optimizar campañas de Facebook Ads** de manera centralizada, utilizando inteligencia artificial para la creación de contenido y análisis de rendimiento.
 
-**3. Valor Diferencial de la Aplicación Web (MVP):**
-*   **Centralización y simplificación:** Una **plataforma unificada** que integre la creación de campañas, la IA creativa, la optimización por reglas y el reporting.
-*   **Mayor eficiencia y ROI:** La automatización impulsada por IA debe optimizar el rendimiento, reducir costos y aumentar el retorno de la inversión (ROI), como se ha demostrado con las Campañas Advantage+ de Facebook que aumentaron el ROI hasta en un 20%.
-*   **Personalización hiperprecisa:** Usar IA para **segmentar audiencias** y **personalizar dinámicamente el contenido** de los anuncios, llevando a mayores tasas de conversión y mejor experiencia de usuario.
-*   **IA Creativa fiable y adaptable:** Herramientas de IA para generación de copys y creatividades visuales que aborden las limitaciones de fiabilidad y contexto observadas en modelos como GPT-5.
-*   **Automatización inteligente y masiva:** Permitir la creación de reglas de optimización aplicables a gran escala, superando la limitación de la configuración individual de tareas en herramientas como Bïrch (ex. Revealbot).
-*   **Reporting unificado y estratégico:** Proporcionar **dashboards personalizables y en tiempo real** con métricas clave de Facebook Ads, incluyendo una atribución de conversiones más precisa, y generación de **informes de marca blanca** automatizados.
+## 🎯 Objetivo Principal
 
-**4. Funcionalidades Esenciales para el MVP de la Aplicación Web:**
+Desarrollar un **MVP (Producto Mínimo Viable)** que permita validar la idea de negocio mediante una herramienta que centralice la gestión de campañas publicitarias de Facebook, reduciendo la fragmentación de herramientas y mejorando la eficiencia operativa.
 
-*   **Gestión Centralizada y Multi-cuenta:**
-    *   Un **panel de control intuitivo** para gestionar campañas de diferentes clientes desde un único lugar.
-    *   **Conexión segura y gestión básica de cuentas de Facebook Ads** a través de su API.
-*   **Creación de Campañas Inteligente:**
-    *   Interfaz para la selección de objetivos publicitarios (ej. Conversiones, Tráfico) y presupuestos.
-    *   Configuración básica de audiencia (ubicación, edad, género, intereses clave).
-    *   **Segmentación avanzada de audiencia** con IA para públicos similares de alta calidad.
-*   **IA Creativa Integrada (Texto y Visual):**
-    *   **Generación de Copy con IA:** Integración con la API de OpenAI (utilizando modelos eficientes como GPT-4o mini) para crear **textos publicitarios** a partir de prompts o ideas base, con opción de edición manual. Se priorizará la fiabilidad, el seguimiento de contexto y la comprensión de la intención del usuario.
-    *   **Generación de Imágenes con IA:** Integración con la API de OpenAI (DALL-E 3) para crear **imágenes básicas para anuncios** a partir de descripciones textuales.
-    *   **Publicación de un anuncio simple en Facebook Ads** con copy y creatividad generados por IA.
-*   **Reglas de Optimización y Automatización Avanzadas:**
-    *   Interfaz simple para definir y aplicar **reglas de optimización automáticas básicas** (ej. "Pausar anuncio si el Coste por Adquisición (CPA) excede un umbral" o "Pausar anuncio si el Retorno sobre Gasto Publicitario (ROAS) es bajo"), con **aplicación de reglas a nivel de campaña o ad set de forma masiva**.
-*   **Reporting y Analítica Unificada:**
-    *   **Dashboard interactivo y centralizado** que muestre métricas clave de Facebook Ads en gráficos sencillos (Impresiones, Alcance, Clics en enlaces, CTR, CPC, CPM, ROAS, Conversiones).
-    *   Generación de **informes PDF básicos con marca blanca** (logo de la agencia).
+## 🔍 Problemas que Resuelve
 
-**5. Arquitectura y Tecnología Recomendada para la Aplicación Web (MVP):**
+- **Gestión manual ineficiente** de múltiples campañas publicitarias
+- **Fragmentación de herramientas** que requiere navegar entre diferentes plataformas
+- **Falta de personalización** en la segmentación de audiencias
+- **Reportes limitados** y dispersos entre diferentes herramientas
+- **Proceso lento** en la creación de contenido publicitario
 
-*   **Backend:**
-    *   **Lenguaje:** JavaScript/TypeScript.
-    *   **Runtime:** **Node.js** (altamente escalable, permite usar un solo lenguaje para frontend y backend, optimizando costos y tiempos de desarrollo).
-    *   **Framework:** **Express.js** (para ligereza) o NestJS (para aplicaciones empresariales más estructuradas).
-*   **Frontend:**
-    *   **Framework:** **React.js**
-*   **IA (Integraciones Externas):**
-    *   **OpenAI API:**
-    *   **Facebook Marketing API:** Para la gestión programática de campañas, anuncios, targeting e insights en Facebook e Instagram.
-   **Base de Datos:** **PostgreSQL**
-*   **Control de Versiones:** Git y GitHub/GitLab.
+## ✨ Propuesta de Valor
 
-**6. Fases de Desarrollo del MVP (Aplicación Web):**
-Un MVP se desarrolla generalmente en semanas o pocos meses, enfocándose en funciones esenciales para validar la idea y obtener feedback rápido.
+### Centralización Completa
+- Panel unificado para gestionar campañas de múltiples clientes
+- Integración directa con Facebook Marketing API
+- Interfaz intuitiva y fácil de usar
 
-*   **Fase 1: Definición de Requerimientos Clave (2-4 semanas):** Identificar el problema central y definir las funcionalidades mínimas viables para el MVP.
-*   **Fase 2: Arquitectura y Tecnología a Utilizar (3-5 semanas):** Seleccionar y configurar la pila tecnológica mencionada anteriormente.
-*   **Fase 3: Desarrollo por Módulos (8-12 semanas):** Implementar los módulos de conexión, creación de campañas, IA creativa, publicación de anuncios, reglas de optimización y reportes.
-*   **Fase 4: Pruebas Internas y con Usuarios Reales (3-4 semanas):** Ejecutar pruebas de calidad, usar entornos de prueba de Meta (Sandbox Mode), y realizar un piloto con 3-5 agencias de marketing digital para recopilar feedback.
-*   **Fase 5: Iteración y Mejora (Continua):** Analizar el feedback, priorizar funcionalidades y continuar el desarrollo incremental.
+### IA Creativa Integrada
+- Generación automática de copy publicitario
+- Creación de imágenes para anuncios
+- Personalización basada en audiencia objetivo
 
-Este prompt detalla la construcción de una aplicación web, un **software todo-en-uno**, que integra IA para la creación, optimización y reporte de campañas publicitarias en Facebook Ads, resolviendo los problemas identificados en las fuentes.
+### Análisis y Reportes Avanzados
+- Dashboards interactivos en tiempo real
+- Métricas clave centralizadas (ROAS, CPA, CTR, etc.)
+- Informes personalizados con marca blanca
+
+## 🚀 Funcionalidades del MVP
+
+### 1. Gestión Multi-cuenta
+- Panel de control centralizado
+- Conexión segura con cuentas de Facebook Ads via API
+- Administración de múltiples clientes desde una interfaz
+
+### 2. Creación de Campañas Inteligente
+- Selección de objetivos publicitarios (Conversiones, Tráfico, etc.)
+- Configuración de presupuestos y programación
+- Segmentación básica de audiencias (ubicación, demografía, intereses)
+- Segmentación avanzada con IA para públicos similares
+
+### 3. IA para Contenido Publicitario
+- **Generación de Copy:** Integración con OpenAI API (GPT-4o mini)
+- **Creación de Imágenes:** Integración con DALL-E 3 para creatividades visuales
+- **Publicación directa** en Facebook Ads con contenido generado por IA
+
+### 4. Optimización Inteligente
+- Reglas de optimización personalizables
+- Aplicación masiva de reglas a campañas y ad sets
+- Monitoreo automático de métricas clave (CPA, ROAS)
+
+### 5. Reportes y Analytics
+- Dashboard interactivo con métricas principales
+- Gráficos en tiempo real de rendimiento
+- Generación de informes PDF con marca blanca
+- Métricas incluidas: Impresiones, Alcance, CTR, CPC, CPM, ROAS, Conversiones
+
+## 🛠️ Stack Tecnológico
+
+### Backend
+- **Lenguaje:** TypeScript/JavaScript
+- **Runtime:** Node.js
+- **Framework:** Express.js o NestJS
+- **Base de Datos:** PostgreSQL
+
+### Frontend
+- **Framework:** React.js
+- **UI/UX:** Interfaz moderna y responsiva
+
+### Integraciones
+- **Facebook Marketing API:** Gestión programática de campañas
+- **OpenAI API:** Generación de contenido con IA
+- **DALL-E 3:** Creación de imágenes publicitarias
+
+### Control de Versiones
+- Git con GitHub/GitLab
+
+## 📅 Plan de Desarrollo (MVP)
+
+### Fase 1: Planificación y Diseño (2-4 semanas)
+- Definición de requerimientos técnicos
+- Diseño de la arquitectura del sistema
+- Prototipado de interfaces principales
+
+### Fase 2: Configuración Técnica (3-5 semanas)
+- Configuración del stack tecnológico
+- Integración inicial con Facebook Marketing API
+- Configuración de OpenAI API
+
+### Fase 3: Desarrollo Core (8-12 semanas)
+- **Módulo de Conexión:** Gestión de cuentas de Facebook Ads
+- **Módulo de Campañas:** Creación y configuración
+- **Módulo de IA:** Generación de copy e imágenes
+- **Módulo de Reportes:** Dashboard y analytics básicos
+
+### Fase 4: Testing y Validación (3-4 semanas)
+- Pruebas internas de funcionalidad
+- Testing con Facebook Sandbox Mode
+- Piloto con 3-5 agencias de marketing digital
+
+### Fase 5: Iteración Continua
+- Análisis de feedback de usuarios
+- Mejoras incrementales
+- Preparación para escalabilidad
+
+## 🎯 Métricas de Éxito del MVP
+
+### Métricas de Producto
+- **Tiempo de Gestión:** Reducción del 50% en tiempo de gestión de campañas de Facebook
+- **Eficiencia de Creación:** Campañas de Facebook creadas 3x más rápido
+- **ROI de Facebook Ads:** Mejora promedio del 15-20% en ROAS de Facebook
+- **Precisión de IA:** 80%+ de satisfacción con copy e imágenes para Facebook Ads
+
+### Métricas de Usuario
+- **Adopción:** 80%+ de usuarios activos semanalmente durante piloto
+- **Satisfacción:** NPS > 7/10 en pruebas beta
+- **Retención:** 70%+ de usuarios regresan después de primera semana
+- **Conectividad:** 100% de conexiones exitosas con Facebook Marketing API
+
+### Métricas de Negocio
+- **Validación de Mercado:** 3-5 agencias completan piloto de 4 semanas
+- **Feedback Positivo:** 80%+ recomendarían la herramienta
+- **Conversión a Pago:** 40%+ de usuarios beta interesados en versión de pago
+
+## 🔮 Roadmap Futuro
+
+Después de validar el MVP, las próximas funcionalidades incluirán:
+- Integración con otras plataformas (Google Ads, LinkedIn Ads)
+- IA más avanzada para optimización automática
+- Análisis predictivo de rendimiento
+- Automatización completa de workflows
+
+## 🤝 Contribución
+
+Este proyecto está en fase de desarrollo MVP. Para contribuir o colaborar, contactar al equipo de desarrollo.
+
+---
+
+**Versión:** MVP 1.0  
+**Estado:** En Desarrollo  
+**Licencia:** Propietaria
