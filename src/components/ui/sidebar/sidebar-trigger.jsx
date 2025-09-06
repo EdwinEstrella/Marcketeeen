@@ -1,23 +1,24 @@
 import React from 'react'
-import { Menu } from 'lucide-react'
 import { useSidebar } from './sidebar-provider'
+import { Button } from '@/components/ui/button'
+import { Menu } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const SidebarTrigger = React.forwardRef(({ className, ...props }, ref) => {
-  const { setIsOpen } = useSidebar()
+  const { isOpen, setIsOpen } = useSidebar()
 
   return (
-    <button
+    <Button
       ref={ref}
-      className={cn(
-        'flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none',
-        className
-      )}
-      onClick={() => setIsOpen(prev => !prev)}
+      variant="ghost"
+      size="icon"
+      className={cn('h-8 w-8', className)}
+      onClick={() => setIsOpen(!isOpen)}
       {...props}
     >
-      <Menu size={16} />
-    </button>
+      <Menu className="h-4 w-4" />
+      <span className="sr-only">Toggle Sidebar</span>
+    </Button>
   )
 })
 SidebarTrigger.displayName = 'SidebarTrigger'

@@ -5,7 +5,7 @@ const SidebarFooter = React.forwardRef(({ className, ...props }, ref) => {
   return (
     <div
       ref={ref}
-      className={cn('flex flex-col gap-2 p-4 border-t border-border bg-surface', className)}
+      className={cn('flex items-center p-4 pt-0', className)}
       {...props}
     />
   )

@@ -1,100 +1,141 @@
 import React from 'react'
-import { 
-  Home, 
-  BarChart3, 
-  Settings, 
-  Bot, 
-  Zap, 
-  Users,
-  ChevronDown,
-  User,
-  LogOut
-} from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger
+  SidebarMenuButton,
+  SidebarHeader
 } from '@/components/ui/sidebar'
+import { 
+  Home, 
+  BarChart3, 
+  Users, 
+  DollarSign, 
+  Settings,
+  Target,
+  TrendingUp,
+  FileText
+} from 'lucide-react'
+import COLORS from '@/constants/colors'
 
-// Menu items
-const navigation = [
-  { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Campañas', href: '/campaigns', icon: BarChart3 },
-  { name: 'IA Creativa', href: '/ai-creative', icon: Bot },
-  { name: 'Automatización', href: '/automation', icon: Zap },
-  { name: 'Analytics', href: '/analytics', icon: Users },
-  { name: 'Configuración', href: '/settings', icon: Settings }
-]
+const AppSidebar = () => {
+  const menuItems = [
+    {
+      label: 'Dashboard',
+      icon: Home,
+      href: '/'
+    },
+    {
+      label: 'Campaigns',
+      icon: Target,
+      href: '/campaigns'
+    },
+    {
+      label: 'Ads',
+      icon: TrendingUp,
+      href: '/ads'
+    },
+    {
+      label: 'Audiences',
+      icon: Users,
+      href: '/audiences'
+    },
+    {
+      label: 'Reports',
+      icon: BarChart3,
+      href: '/reports'
+    },
+    {
+      label: 'Billing',
+      icon: DollarSign,
+      href: '/billing'
+    },
+    {
+      label: 'Documents',
+      icon: FileText,
+      href: '/documents'
+    }
+  ]
 
-export function AppSidebar() {
   return (
-    <Sidebar className="border-r border-border bg-surface h-screen">
-      <SidebarHeader className="border-b border-border p-4 bg-surface">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton className="justify-between bg-transparent hover:bg-surface/50">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg"></div>
-                <span className="text-lg font-bold text-text">MarketingAI</span>
-              </div>
-              <ChevronDown className="ml-auto opacity-60 text-text-secondary" />
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+    <Sidebar 
+      className="w-64 border-r" 
+      style={{ 
+        backgroundColor: COLORS.surface.DEFAULT,
+        borderColor: COLORS.border.DEFAULT
+      }}
+    >
+      <SidebarHeader>
+        <div className="flex items-center space-x-2">
+          <div 
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{ background: COLORS.gradients.primary }}
+          >
+            <Target size={16} className="text-white" />
+          </div>
+          <span 
+            className="font-bold text-lg"
+            style={{ color: COLORS.text.DEFAULT }}
+          >
+            Marcketeeen
+          </span>
+        </div>
       </SidebarHeader>
 
-      <SidebarContent className="flex-1">
+      <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="px-4 text-text-secondary text-xs font-medium uppercase tracking-wide">
-            Navegación
+          <SidebarGroupLabel 
+            style={{ color: COLORS.text.secondary }}
+          >
+            Navigation
           </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navigation.map((item) => {
-                const Icon = item.icon
-                return (
-                  <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton asChild className="px-4 py-3 hover:bg-surface/50 transition-colors bg-transparent">
-                      <a href={item.href} className="flex items-center gap-3 text-text-secondary hover:text-text">
-                        <Icon size={20} className="text-text-secondary group-hover:text-text" />
-                        <span className="text-sm font-medium">{item.name}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
+          <SidebarMenu>
+            {menuItems.map((item) => (
+              <SidebarMenuItem key={item.label}>
+                <SidebarMenuButton
+                  className="w-full justify-start"
+                  style={{ 
+                    color: COLORS.text.DEFAULT,
+                    '--hover-bg': COLORS.surface.light,
+                    '--hover-text': COLORS.text.DEFAULT
+                  }}
+                >
+                  <item.icon size={16} />
+                  {item.label}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel 
+            style={{ color: COLORS.text.secondary }}
+          >
+            Settings
+          </SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                className="w-full justify-start"
+                style={{ 
+                  color: COLORS.text.DEFAULT,
+                  '--hover-bg': COLORS.surface.light,
+                  '--hover-text': COLORS.text.DEFAULT
+                }}
+              >
+                <Settings size={16} />
+                Settings
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter className="border-t border-border p-4 bg-surface">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton className="justify-between p-2 hover:bg-surface/50 rounded-lg transition-colors bg-transparent">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center">
-                  <User size={20} className="text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-text truncate">Agencia Digital</p>
-                  <p className="text-xs text-text-secondary truncate">admin@agencia.com</p>
-                </div>
-              </div>
-              <ChevronDown className="ml-auto opacity-60 text-text-secondary" />
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   )
 }
+
+export { AppSidebar }

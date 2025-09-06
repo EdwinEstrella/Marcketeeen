@@ -1,14 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marketing Dashboard</title>
-    <script>
-      // Polyfill para módulos de Node.js que el SDK de Facebook necesita
-      window.global = window;
-      window.process = { env: {} };
+    <title>Marcketeeen - Facebook Ads Manager</title>
+    <script type="module">
+      // Cargar polyfills GLOBALMENTE antes que cualquier otro código
+      if (typeof window !== 'undefined') {
+        // Polyfill para util.inherits - debe estar disponible globalmente
+        if (typeof window.util === 'undefined') {
+          window.util = {};
+        }
+        
+        if (typeof window.util.inherits === 'undefined') {
+          window.util.inherits = function(ctor, superCtor) {
+            ctor.super_ = superCtor;
+            ctor.prototype = Object.create(superCtor.prototype, {
+              constructor: {
+                value: ctor,
+                enumerable: false,
+                writable: true,
+                configurable: true
+              }
+            });
+          };
+        }
+
+        // Polyfill para process
+        if (typeof window.process === 'undefined') {
+          window.process = {
+            env: {},
+            nextTick: (callback) => setTimeout(callback, 0),
+            platform: 'browser',
+            versions: { node: '16.0.0' },
+            cwd: () => '/',
+            hrtime: () => [performance.now() * 1000, 0]
+          };
+        }
+
+        // Polyfill para Buffer
+        if (typeof window.Buffer === 'undefined') {
+          window.Buffer = {
+            from: (str, encoding) => {
+              if (typeof str === 'string') {
+                return new TextEncoder().encode(str);
+              }
+              return str;
+            },
+            isBuffer: (obj) => obj instanceof Uint8Array,
+            alloc: (size) => new Uint8Array(size)
+          };
+        }
+
+        // Polyfill para stream
+        if (typeof window.stream === 'undefined') {
+          window.stream = {
+            Readable: class Readable {},
+            Writable: class Writable {},
+            Duplex: class Duplex {},
+            Transform: class Transform {}
+          };
+        }
+
+        // Polyfill para crypto
+        if (typeof window.crypto === 'undefined') {
+          window.crypto = {
+            randomBytes: (size) => {
+              const array = new Uint8Array(size);
+              crypto.getRandomValues(array);
+              return array;
+            }
+          };
+        } else if (typeof window.crypto.randomBytes === 'undefined') {
+          window.crypto.randomBytes = (size) => {
+            const array = new Uint8Array(size);
+            crypto.getRandomValues(array);
+            return array;
+          };
+        }
+
+        // Polyfill para global
+        if (typeof window.global === 'undefined') {
+          window.global = window;
+        }
+
+        console.log('Polyfills globales cargados para Node.js modules');
+      }
     </script>
   </head>
   <body>

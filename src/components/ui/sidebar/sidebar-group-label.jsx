@@ -6,7 +6,7 @@ const SidebarGroupLabel = React.forwardRef(({ className, ...props }, ref) => {
     <div
       ref={ref}
       className={cn(
-        'text-xs font-medium text-muted-foreground uppercase tracking-wider px-2 py-1',
+        'text-xs font-medium text-muted-foreground px-2 py-1',
         className
       )}
       {...props}

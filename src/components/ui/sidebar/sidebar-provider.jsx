@@ -2,11 +2,15 @@ import React, { createContext, useContext, useState } from 'react'
 
 const SidebarContext = createContext({})
 
-const SidebarProvider = ({ children, defaultOpen = true }) => {
+const SidebarProvider = ({ 
+  children, 
+  defaultOpen = false,
+  ...props 
+}) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
   return (
-    <SidebarContext.Provider value={{ isOpen, setIsOpen }}>
+    <SidebarContext.Provider value={{ isOpen, setIsOpen }} {...props}>
       {children}
     </SidebarContext.Provider>
   )

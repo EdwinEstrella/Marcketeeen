@@ -1,92 +1,50 @@
-// Importar polyfills primero - ruta corregida
-import '../utils/polyfills';
-
-// Polyfills para módulos de Node.js
-if (typeof global === 'undefined') {
-  window.global = window;
-}
-
-if (typeof process === 'undefined') {
-  window.process = { 
-    env: {},
-    nextTick: (callback) => setTimeout(callback, 0),
-    platform: 'browser'
-  };
-}
-
-// Configuración simplificada para evitar problemas de compatibilidad
+// Facebook API Service with proper SDK handling and fallback
 const FACEBOOK_ACCESS_TOKEN = 'EAAsZA9ZBw1ZAJcBPSWXrNaNv3uArITTRlZAPCHFZBuVY7LM4SfN2SZAnPJlGHs0UiTAqZAdFcKz8aZBbLjrmO96CeT7Dsg56BPX1HGJxKBOic9sQyfhwKGlFIdiYr7nk9OlSvvHbaRydnwAVU1rdf0RUUuyCv0ZBUuEZAYa2AK2zW6JFxMEBUhrRJpeFVaiciM92nSD26Hbm5ZC4mbX5M4J6AGcfQsK';
 
 class FacebookAdsService {
   constructor() {
     this.account = null;
+    this.sdk = null;
     this.isSDKLoaded = false;
     this.initPromise = null;
   }
 
   async initializeSDK() {
+    if (this.isSDKLoaded) return;
+
     try {
-      console.log('Inicializando SDK de Facebook...');
+      console.log('Attempting to load Facebook Business SDK...');
       
-      // Verificar si estamos en el navegador
-      if (typeof window === 'undefined') {
-        throw new Error('SDK solo compatible con navegador');
-      }
-
-      // Intentar cargar el SDK de forma segura
-      let fbSDK;
-      try {
-        fbSDK = await import('facebook-nodejs-business-sdk');
-        console.log('SDK cargado exitosamente');
-      } catch (importError) {
-        console.warn('No se pudo cargar el SDK completo, usando modo mock', importError);
-        this.isSDKLoaded = true;
-        return { mode: 'mock' };
-      }
-
-      const { FacebookAdsApi, AdAccount, Campaign, AdSet, Ad, AdCreative, Insights } = fbSDK;
+      // Dynamic import to avoid build-time issues
+      const fbSDK = await import('facebook-nodejs-business-sdk');
       
-      // Configurar la API
-      const api = FacebookAdsApi.init(FACEBOOK_ACCESS_TOKEN);
+      this.sdk = fbSDK;
+      this.isSDKLoaded = true;
+      console.log('Facebook Business SDK loaded successfully');
       
+      // Initialize API
+      const api = this.sdk.FacebookAdsApi.init(FACEBOOK_ACCESS_TOKEN);
       if (import.meta.env.MODE === 'development') {
         api.setDebug(true);
       }
       
-      this.FacebookAdsApi = FacebookAdsApi;
-      this.AdAccount = AdAccount;
-      this.Campaign = Campaign;
-      this.AdSet = AdSet;
-      this.Ad = Ad;
-      this.AdCreative = AdCreative;
-      this.Insights = Insights;
-      
-      this.isSDKLoaded = true;
-      console.log('SDK de Facebook inicializado correctamente');
-      
       return api;
     } catch (error) {
-      console.error('Error en initializeSDK:', error);
-      // No lanzar error, permitir que la aplicación continúe en modo mock
-      this.isSDKLoaded = true;
+      console.warn('Facebook SDK failed to load, using mock mode:', error.message);
+      this.isSDKLoaded = true; // Mark as loaded to prevent retries
       return { mode: 'mock' };
     }
   }
 
   async ensureSDKLoaded() {
-    if (!this.isSDKLoaded) {
-      if (!this.initPromise) {
-        this.initPromise = this.initializeSDK();
-      }
-      await this.initPromise;
+    if (!this.initPromise) {
+      this.initPromise = this.initializeSDK();
     }
+    return this.initPromise;
   }
 
-  // Métodos mock para desarrollo
-  async getAdAccounts() {
-    await this.ensureSDKLoaded();
-    
-    // Datos mock para desarrollo
+  // Mock data for development
+  getMockAccounts() {
     return [
       {
         id: 'act_123456789',
@@ -109,16 +67,8 @@ class FacebookAdsService {
     ];
   }
 
-  setActiveAccount(accountId) {
-    this.account = accountId;
-    console.log(`Cuenta activa establecida: ${accountId}`);
-  }
-
-  async getCampaigns(options = {}) {
-    await this.ensureSDKLoaded();
-    
-    // Datos mock para desarrollo
-    const mockCampaigns = [
+  getMockCampaigns() {
+    return [
       {
         id: 'campaign_001',
         name: 'Campaña de Verano 2024 - Conversiones',
@@ -142,30 +92,84 @@ class FacebookAdsService {
         updated_time: '2024-10-15T16:45:00Z',
         start_time: '2024-11-20T00:00:00Z',
         stop_time: '2024-11-30T23:59:59Z'
-      },
-      {
-        id: 'campaign_003',
-        name: 'Brand Awareness Q4',
-        objective: 'BRAND_AWARENESS',
-        status: 'ACTIVE',
-        daily_budget: 75.00,
-        lifetime_budget: 2250.00,
-        created_time: '2024-09-01T08:00:00Z',
-        updated_time: '2024-09-15T11:20:00Z',
-        start_time: '2024-10-01T00:00:00Z',
-        stop_time: '2024-12-31T23:59:59Z'
       }
     ];
+  }
 
-    return mockCampaigns.slice(0, options.limit || 50);
+  // Account methods
+  async getAdAccounts() {
+    await this.ensureSDKLoaded();
+    
+    if (!this.sdk) {
+      return this.getMockAccounts();
+    }
+
+    try {
+      const user = new this.sdk.User('me');
+      const accounts = await user.getAdAccounts([
+        this.sdk.AdAccount.Fields.id,
+        this.sdk.AdAccount.Fields.name,
+        this.sdk.AdAccount.Fields.account_status,
+        this.sdk.AdAccount.Fields.amount_spent,
+        this.sdk.AdAccount.Fields.balance,
+        this.sdk.AdAccount.Fields.currency,
+        this.sdk.AdAccount.Fields.timezone_name
+      ]);
+
+      return accounts;
+    } catch (error) {
+      console.error('Error getting accounts:', error);
+      return this.getMockAccounts();
+    }
+  }
+
+  setActiveAccount(accountId) {
+    this.account = accountId;
+  }
+
+  // Campaign methods
+  async getCampaigns(options = {}) {
+    await this.ensureSDKLoaded();
+    
+    if (!this.sdk || !this.account) {
+      return this.getMockCampaigns().slice(0, options.limit || 50);
+    }
+
+    try {
+      const adAccount = new this.sdk.AdAccount(`act_${this.account}`);
+      
+      const fields = [
+        this.sdk.Campaign.Fields.id,
+        this.sdk.Campaign.Fields.name,
+        this.sdk.Campaign.Fields.objective,
+        this.sdk.Campaign.Fields.status,
+        this.sdk.Campaign.Fields.daily_budget,
+        this.sdk.Campaign.Fields.lifetime_budget,
+        this.sdk.Campaign.Fields.created_time,
+        this.sdk.Campaign.Fields.updated_time,
+        this.sdk.Campaign.Fields.start_time,
+        this.sdk.Campaign.Fields.stop_time
+      ];
+
+      const params = {
+        limit: options.limit || 50,
+        ...options.filters
+      };
+
+      const campaigns = await adAccount.getCampaigns(fields, params);
+      return campaigns;
+    } catch (error) {
+      console.error('Error getting campaigns:', error);
+      return this.getMockCampaigns().slice(0, options.limit || 50);
+    }
   }
 
   async getCampaignInsights(campaignIds, dateRange = {}) {
     await this.ensureSDKLoaded();
     
-    // Datos mock para insights
-    return campaignIds.map(campaignId => {
-      const baseData = {
+    if (!this.sdk || !this.account) {
+      // Mock insights
+      return campaignIds.map(campaignId => ({
         campaign_id: campaignId,
         campaign_name: `Campaña ${campaignId.split('_')[1]}`,
         impressions: Math.floor(Math.random() * 20000) + 5000,
@@ -174,28 +178,73 @@ class FacebookAdsService {
         spend: (Math.random() * 2000 + 300).toFixed(2),
         ctr: (Math.random() * 5 + 1).toFixed(1),
         cpc: (Math.random() * 2 + 0.5).toFixed(2),
-        conversions: Math.floor(Math.random() * 50) + 5
-      };
-      
-      return {
-        ...baseData,
+        conversions: Math.floor(Math.random() * 50) + 5,
         date_start: dateRange.since || '2024-01-01',
         date_stop: dateRange.until || '2024-12-31'
+      }));
+    }
+
+    try {
+      const adAccount = new this.sdk.AdAccount(`act_${this.account}`);
+      
+      const defaultDateRange = {
+        since: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        until: new Date().toISOString().split('T')[0]
       };
-    });
+
+      const fields = [
+        'campaign_id',
+        'campaign_name',
+        'impressions',
+        'reach',
+        'clicks',
+        'spend',
+        'ctr',
+        'cpc',
+        'cpm',
+        'frequency',
+        'actions',
+        'conversions',
+        'conversion_values'
+      ];
+
+      const params = {
+        time_range: dateRange || defaultDateRange,
+        level: 'campaign',
+        filtering: [{ field: 'campaign.id', operator: 'IN', value: campaignIds }]
+      };
+
+      const insights = await adAccount.getInsights(fields, params);
+      return insights;
+    } catch (error) {
+      console.error('Error getting insights:', error);
+      return campaignIds.map(campaignId => ({
+        campaign_id: campaignId,
+        campaign_name: `Campaña ${campaignId.split('_')[1]}`,
+        impressions: 0,
+        reach: 0,
+        clicks: 0,
+        spend: '0.00',
+        ctr: '0.0',
+        cpc: '0.00',
+        conversions: 0,
+        date_start: dateRange.since || '2024-01-01',
+        date_stop: dateRange.until || '2024-12-31'
+      }));
+    }
   }
 
-  // Método para verificar el estado del SDK
   getSDKStatus() {
     return {
       isLoaded: this.isSDKLoaded,
-      mode: this.FacebookAdsApi ? 'live' : 'mock'
+      hasSDK: !!this.sdk,
+      mode: this.sdk ? 'live' : 'mock'
     };
   }
 }
 
-// Instancia singleton del servicio
+// Export singleton instance
 export const facebookAdsService = new FacebookAdsService();
 
-// Inicializar automáticamente al cargar el módulo
+// Auto-initialize
 facebookAdsService.initializeSDK().catch(console.error);

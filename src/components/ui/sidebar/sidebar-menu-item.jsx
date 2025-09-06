@@ -5,7 +5,7 @@ const SidebarMenuItem = React.forwardRef(({ className, ...props }, ref) => {
   return (
     <li
       ref={ref}
-      className={cn('relative', className)}
+      className={cn('list-none', className)}
       {...props}
     />
   )

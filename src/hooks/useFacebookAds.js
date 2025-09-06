@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { facebookAdsService } from '../services/facebookApi';
+import { facebookAdsService } from '../services/facebookAdsService';
 
 export const useFacebookAds = () => {
   const [accounts, setAccounts] = useState([]);
@@ -7,6 +7,7 @@ export const useFacebookAds = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [sdkStatus, setSdkStatus] = useState({ isLoaded: false, mode: 'mock' });
 
   // Cargar cuentas publicitarias
   const loadAccounts = async () => {
@@ -14,26 +15,18 @@ export const useFacebookAds = () => {
     setError(null);
     
     try {
-      // Usar datos mock mientras resolvemos la compatibilidad del SDK
-      const mockAccounts = [
-        {
-          id: 'act_123456789',
-          name: 'Mi Cuenta Publicitaria',
-          account_status: 1,
-          amount_spent: 1500.75,
-          balance: 500.25,
-          currency: 'USD'
-        }
-      ];
+      const accountsData = await facebookAdsService.getAdAccounts();
+      setAccounts(accountsData);
       
-      setAccounts(mockAccounts);
+      // Update SDK status
+      setSdkStatus(facebookAdsService.getSDKStatus());
       
       // Seleccionar la primera cuenta por defecto
-      if (mockAccounts.length > 0 && !selectedAccount) {
-        await selectAccount(mockAccounts[0].id);
+      if (accountsData.length > 0 && !selectedAccount) {
+        await selectAccount(accountsData[0].id);
       }
       
-      return mockAccounts;
+      return accountsData;
     } catch (err) {
       setError(err.message);
       throw err;
@@ -71,8 +64,7 @@ export const useFacebookAds = () => {
     setError(null);
     
     try {
-      // Usar datos mock mientras resolvemos la compatibilidad
-      const campaignList = await facebookAdsService.getCampaignsMock();
+      const campaignList = await facebookAdsService.getCampaigns();
       setCampaigns(campaignList);
       return campaignList;
     } catch (err) {
@@ -89,8 +81,59 @@ export const useFacebookAds = () => {
     setError(null);
     
     try {
-      const insights = await facebookAdsService.getCampaignInsightsMock(campaignIds, dateRange);
+      const insights = await facebookAdsService.getCampaignInsights(campaignIds, dateRange);
       return insights;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Crear campaña
+  const createCampaign = async (campaignData) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const campaign = await facebookAdsService.createCampaign(campaignData);
+      await loadCampaigns(); // Refresh the list
+      return campaign;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Actualizar campaña
+  const updateCampaign = async (campaignId, updates) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const result = await facebookAdsService.updateCampaign(campaignId, updates);
+      await loadCampaigns(); // Refresh the list
+      return result;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Cambiar estado de campaña
+  const toggleCampaignStatus = async (campaignId, status) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const result = await facebookAdsService.toggleCampaignStatus(campaignId, status);
+      await loadCampaigns(); // Refresh the list
+      return result;
     } catch (err) {
       setError(err.message);
       throw err;
@@ -111,12 +154,16 @@ export const useFacebookAds = () => {
     campaigns,
     loading,
     error,
+    sdkStatus,
     
     // Acciones
     loadAccounts,
     selectAccount,
     loadCampaigns,
     getCampaignInsights,
+    createCampaign,
+    updateCampaign,
+    toggleCampaignStatus,
     
     // Utilidades
     refetch: loadCampaigns
